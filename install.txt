@@ -1,0 +1,198 @@
+http://tipsonubuntu.com/2017/12/20/google-chrome-asks-password-unlock-login-keyring/
+sudo sed -i 's,Exec=/usr/bin/google-chrome-stable %U,Exec=/usr/bin/google-chrome-stable --password-store=basic %U,g' /usr/share/applications/google-chrome.desktop
+
+https://askubuntu.com/questions/22663/how-to-bring-up-network-on-boot-up-when-networkmanager-is-uninstalled
+#auto enp3s0
+#iface enp3s0 inet static
+#address 192.168.1.23
+#netmask 255.255.255.0
+#gateway 192.168.1.254
+#dns-nameservers 192.168.1.83 8.8.8.8
+
+sudo ifconfig enp3s0 192.168.1.23 netmask 255.255.255.0 gateway 192.168.1.254 dns-nameservers 192.168.1.83 8.8.8.8
+sudo route add default gw 192.168.1.23
+
+https://www.tecmint.com/ifconfig-command-examples/
+ifconfig wlp3s0b1 promisc
+-promisc
+
+WINSTATIC
+cmd
+https://pureinfotech.com/set-static-ip-address-windows-10/#static_ip_cmd_windows10
+https://social.technet.microsoft.com/Forums/windows/en-US/bc8a4561-d97e-4339-9b1c-9b90e54a7f92/request-elevation-inside-cmdbatch-file?forum=w7itprosecurity
+https://stackoverflow.com/questions/1223721/in-windows-cmd-how-do-i-prompt-for-user-input-and-use-the-result-in-another-com
+https://stackoverflow.com/questions/18755553/automatically-running-a-batch-file-as-an-administrator/26968577#26968577
+
+
+# Script:	Download Anything.ps1
+# Purpose:  Downloads a file from the web to the specified file path.
+# Author:   Paperclips
+# Email:	pwd9000@hotmail.co.uk
+# Date:     Nov 2011
+# Comments: 
+# Notes:    
+#			-Get-URL http://website.com/downloads/Iwantthisfile.txt thisfile.txt
+#			-Get-URL http://website.com/downloads/Iwantthisfile.txt C:\myfolder\thisfile.txt
+
+    $url = "http://website.com/downloads/Iwantthisfile.txt"
+    $path = "C:\temp\thisisthefile.txt"
+   # param([string]$url, [string]$path)
+     
+    if(!(Split-Path -parent $path) -or !(Test-Path -pathType Container (Split-Path -parent $path))) {
+      $path = Join-Path $pwd (Split-Path -leaf $path)
+    }
+     
+    "Downloading [$url]`nSaving at [$path]"
+    $client = new-object System.Net.WebClient
+    $client.DownloadFile($url, $path)
+    #$client.DownloadData($url, $path)
+     
+    $path
+
+
+http://www.nvidia.com/content/DriverDownload-March2009/confirmation.php?url=/Windows/391.35/391.35-desktop-win10-64bit-international-whql.exe&lang=us&type=TITAN
+reg add "HKEY_CURRENT_USER\control panel\desktop" /v wallpaper /t REG_SZ /d "" /f
+reg add "HKEY_CURRENT_USER\control panel\desktop" /v wallpaper /t REG_SZ /d C:\Users\1509967\Desktop\hi.jpg /f
+reg add "HKEY_CURRENT_USER\control panel\desktop" /v WallpaperStyle /t REG_SZ /d 2 /f
+RUNDLL32.EXE user32.dll,UpdatePerUserSystemParameters
+pause
+exit
+
+Test-Path HKEY_LOCAL_MACHINE:\SOFTWARE\Microsoft\Windows\CurrentVersion\Themes\Personalise
+##android ask for permission
+ New\DWORD (32-bit) Value. Name it AppsUseLightTheme and set its value to 0
+HKEY_CURRENT_USER:\SOFTWARE\Microsoft\Windows\CurrentVersion\Themes\Personalise
+	
+New-ItemPropertyN  "HKEY_LOCAL_MACHINE:\SOFTWARE\Microsoft\Windows\CurrentVersion\Themes\Personalise" -Name "AppsUseLightTheme" -Value 0 -PropertyType "DWord"
+
+if((Get-ItemProperty HKCU:\Software\hsg -Name bogus -ea 0).bogus) {'Propertyalready exists'}
+
+ELSE { Set-ItemProperty -Path HKCU:\Software\hsg -Name bogus -Value'initial value'}
+
+
+$registryPath = "HKCU:\Software\ScriptingGuys\Scripts"
+
+$Name = "Version"
+
+https://blogs.technet.microsoft.com/heyscriptingguy/2015/04/02/update-or-add-registry-key-value-with-powershell/
+
+$value = "1"
+
+IF(!(Test-Path $registryPath))
+
+  {
+
+    New-Item -Path $registryPath -Force | Out-Null
+
+    New-ItemProperty -Path $registryPath -Name $name -Value $value `
+
+    -PropertyType DWORD -Force | Out-Null}
+
+ ELSE {
+
+    New-ItemProperty -Path $registryPath -Name $name -Value $value `
+
+    -PropertyType DWORD -Force | Out-Null}
+
+
+https://www.kali.org/tutorials/kali-on-the-windows-subsystem-for-linux/
+
+
+HKLM/Hardware/Description/System
+#ALASKA - 1072009
+#BIOS Date: 07/10/15 16:16:40 Ver: 05.0000B
+
+!GTX960 VB Ver 84.06.14.00.AS15
+!GTX960 VB Ver 84.06.14.00.AS15
+!GTX960 VB Ver 84.06.14.00.AS15
+Version 84.06.14.00.4A 
+Version 84.06.14.00.4A 
+Version 84.06.14.00.4A 
+Version 84.06.14.00.4A 
+
+
+
+kmsspico
+developer mode
+enable dark mode
+change background
+chrome
+nvidia driver
+notepad++
+hexeditor
+python3.5
+opencv
+wsl
+ubuntu
+kali linux
+wordprocessor
+acrobat
+##hyper-v
+
+
+#kmsspico
+#developer mode
+reg add "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\AppModelUnlock" /t REG_DWORD /f /v "AllowDevelopmentWithoutDevLicense" /d "1"
+#enable dark mode
+Function Set-DarkTheme {
+[CmdletBinding()]
+          Param ( [Parameter(Mandatory=$False, ValueFromPipelineByPropertyName=$true, Position=0)]
+                   $DwordName = "AppsUseLightTheme",
+                   $Value = "1",
+                   $VerbosePreference = "Continue"
+          )   
+Begin{ 
+}
+Process{
+    # creates HKLM key
+    # New-ItemProperty "HKLM:\HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Themes\Personalize" -Name $DwordName -Value $Value -PropertyType "DWord"
+    # creates HKCU key
+    New-ItemProperty "HKCU:\HKEY_CURRENT_USER\SOFTWARE\Microsoft\Windows\CurrentVersion\Themes\Personalize" -Name $DwordName -Value $Value -PropertyType "DWord"
+}
+End { Write-Verbose "Please Press Enter to sign out of windows, once logged back in the changes will be in place!" ; Pause ; shutdown /l }
+}
+#change background
+#chrome  
+#			-Get-URL http://website.com/downloads/Iwantthisfile.txt thisfile.txt
+#			-Get-URL http://website.com/downloads/Iwantthisfile.txt C:\myfolder\thisfile.txt
+Function downloadurl ($url, $path) {
+[CmdletBinding()]
+          Param ( [Parameter(Mandatory=$False, ValueFromPipelineByPropertyName=$true, Position=0)]
+                   $DwordName = "AppsUseLightTheme",
+                   $Value = "1",
+                   $VerbosePreference = "Continue"
+          )   
+Begin{ 
+}
+Process{
+    # param([string]$url, [string]$path)
+    if(!(Split-Path -parent $path) -or !(Test-Path -pathType Container (Split-Path -parent $path))) {
+      $path = Join-Path $pwd (Split-Path -leaf $path)
+    }
+	"Downloading [$url]`nSaving at [$path]"
+    $client = new-object System.Net.WebClient
+    $client.DownloadFile($url, $path)
+    #$client.DownloadData($url, $path) 
+    $path
+}
+End { Write-Verbose "Please Press Enter to sign out of windows, once logged back in the changes will be in place!" ; Pause ; shutdown /l }
+}
+
+$cdir="C:"
+$path = $cdir"\temp\thisisthefile.txt"
+$pythonctrlpaneldir =""
+downloadurl($chromedlurl, $path)
+downloadurl($nvidiaddlurl, $path)
+downloadurl($nppdlurl, $path)
+$pythonctrlpaneldir    
+#nvidia driver
+#notepad++
+#hexeditor
+#python3.5
+#opencv
+#wsl
+#ubuntu
+#wordprocessor
+#acrobat
+##hyper-v
+##kali linux
